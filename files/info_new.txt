@@ -1,0 +1,3 @@
+Ramesh | C://info//hello.txt
+Suresh | C://info//hello.txt
+Mukesh | C://info//hello.txt
