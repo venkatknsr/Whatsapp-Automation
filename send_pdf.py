@@ -4,7 +4,7 @@ import time
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException, TimeoutException, WebDriverException
-
+import os
 desired_port = 9222  
 
 # Set up Chrome options to connect to the existing debugging session
@@ -93,7 +93,8 @@ def input_file(file_path):
                 line = line.strip()  
                 temp = line.split('|', 1)  
                 contact = temp[0]
-                send_filepath = temp[1]
+                relative_filepath = temp[1]
+                send_filepath=os.path.join(base_directory, relative_filepath.replace('//', '/'))
                 status = send_message(contact, send_filepath)
                 if status == 1:
                     print(f"The message is sent to {contact}")
@@ -116,6 +117,8 @@ def input_file(file_path):
         print(f"Error: You don't have permission to read the file {file_path}.")
         return
 
+#replace the sample path with the base directory path
+base_directory = 'C:/path/to/your/directory' 
 # Call the function with the path to the file containing contact|filepath pairs
 input_file("files//info_new.txt")
 #Can even close the driver if we don't have to send pdf file again. Else can keep it running adn overwrite the info_new_ex.txt with new contacts and run it again.
